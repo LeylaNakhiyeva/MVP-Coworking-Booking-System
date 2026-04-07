@@ -1,6 +1,7 @@
 package com.coworking.coworking_booking_system.Service;
 
-import com.coworking.coworking_booking_system.Entity.*;
+import com.coworking.coworking_booking_system.Entity.*;  // ?????????????????????????????
+import com.coworking.coworking_booking_system.Enum.BookingStatus;
 import com.coworking.coworking_booking_system.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,15 +11,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor   // final saheler ucun avtomatik constructor yaradir
 public class BookingService {
 
-    private final BookingRepository bookingRepo;
-    private final WorkspaceRepository workspaceRepo;
+    private final BookingRepository bookingRepo;     // service repository-lerden asilidir
+    private final WorkspaceRepository workspaceRepo;  //DB əməliyyatlarını repository-lər vasitəsilə edir
     private final UserRepository userRepo;
 
-    @Transactional
-    public Booking createBooking(Long userId, Long workspaceId, LocalDate date) {
+    @Transactional   // bütün əməliyyat bir transaction-da olur
+    public Booking createBooking(Integer userId, Integer workspaceId, LocalDate date) {
         if (date.isBefore(LocalDate.now())) {
             throw new RuntimeException("Date cannot be in the past");
         }
@@ -39,7 +40,7 @@ public class BookingService {
         return bookingRepo.save(booking);
     }
 
-    public List<Booking> getMyBookings(Long userId) {
+    public List<Booking> getMyBookings(Integer userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         return bookingRepo.findByUser(user);
     }

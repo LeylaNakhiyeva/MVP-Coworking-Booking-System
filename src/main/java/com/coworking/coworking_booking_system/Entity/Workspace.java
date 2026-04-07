@@ -2,6 +2,7 @@ package com.coworking.coworking_booking_system.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.coworking.coworking_booking_system.Enum.WorkspaceType;
 
 @Entity
 @Table(name="workspaces")
@@ -11,12 +12,14 @@ import lombok.*;
  public class Workspace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String workspaceName;
     private String description;
     private String password;
-    private String type;
     private float pricePerDay;
+
+    @Enumerated(EnumType.STRING)
+   private WorkspaceType type;
 
 }
