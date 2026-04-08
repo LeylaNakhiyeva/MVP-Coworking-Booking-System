@@ -1,4 +1,4 @@
-package com.coworking.coworking_booking_system.Enum;
+package com.coworking.coworking_booking_system.enums;
 
 public enum WorkspaceType {
     OPEN_SPACE,

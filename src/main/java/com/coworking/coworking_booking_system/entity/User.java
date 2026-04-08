@@ -1,8 +1,8 @@
-package com.coworking.coworking_booking_system.Entity;
+package com.coworking.coworking_booking_system.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.coworking.coworking_booking_system.Enum.UserRole;
+import com.coworking.coworking_booking_system.enums.UserRole;
 
 @Entity
 @Table(name = "users")

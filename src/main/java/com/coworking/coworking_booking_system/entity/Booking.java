@@ -1,7 +1,7 @@
-package com.coworking.coworking_booking_system.Entity;
+package com.coworking.coworking_booking_system.entity;
 
 import java.time.LocalDate;
-import com.coworking.coworking_booking_system.Enum.*;
+import com.coworking.coworking_booking_system.enums.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

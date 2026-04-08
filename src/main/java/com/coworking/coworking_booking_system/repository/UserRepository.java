@@ -1,6 +1,6 @@
-package com.coworking.coworking_booking_system.Repository;
+package com.coworking.coworking_booking_system.repository;
 
-import com.coworking.coworking_booking_system.Entity.User;
+import com.coworking.coworking_booking_system.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

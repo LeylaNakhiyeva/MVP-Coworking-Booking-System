@@ -1,4 +1,4 @@
-package com.coworking.coworking_booking_system.Exception;
+package com.coworking.coworking_booking_system.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
