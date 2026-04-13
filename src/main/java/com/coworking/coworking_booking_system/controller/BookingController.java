@@ -23,11 +23,24 @@ public class BookingController {
                 request.getUserId(),
                 request.getDate()
         );
+
+        /*
+        burda user oz userID sin gonderir.
+        bize lazimdi ki sistem ozu yoxlasin ki
+         user authentifikasiyadan kecib onun sessiyasin gotursun.
+        indi ki halda login olma yoxlanilmir.
+         */
     }
 
     // ✅ 2. User-ə aid bütün bookinglər
-    @GetMapping("/user/{userId}")
-    public List<Booking> getUserBookings(@PathVariable Integer userId) {
+    @GetMapping("/user/{userId}") /*
+    burda usera aid butun bookingler gelecek. sadece burda da yene
+    {userID} elnen gonderilir. Example :
+    ele bil ki, men senin mobil nomrevi gonderirem  endpointe senin
+    butun whatsapp yazishmalarin
+    gorsenir, yoxlamir ki bu nomre mene aiddi ya yox.
+    */
+    public List<Booking> getUserBookings(@PathVariable Integer userId) { 
         return bookingService.getBookingsByUser(userId);
     }
 }
