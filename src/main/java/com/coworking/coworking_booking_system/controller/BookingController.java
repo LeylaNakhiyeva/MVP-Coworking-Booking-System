@@ -43,4 +43,18 @@ public class BookingController {
     public List<Booking> getUserBookings(@PathVariable Integer userId) { 
         return bookingService.getBookingsByUser(userId);
     }
-}
+} 
+
+
+/*
+hec bir kodunda gonderilen datalari yoxlamirsan. @Valid @NotNull @FutureOrPresent  @NotBlank
+date kohne tarixle gonderib bron elesem goturecek.
+workspaceId = null
+userId = null
+date = null
+bele gondersende goturecek.
+
+
+ */  
+
+
