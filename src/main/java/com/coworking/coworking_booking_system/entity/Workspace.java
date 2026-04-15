@@ -4,22 +4,29 @@ import jakarta.persistence.*;
 import lombok.*;
 import com.coworking.coworking_booking_system.enums.WorkspaceType;
 
+import java.math.BigDecimal;
+
 @Entity
-@Table(name="workspaces")
-@Data
+@Table(name = "workspaces")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
- public class Workspace {
+public class Workspace {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String workspaceName;
+    @Column(nullable = false)
+    private String name;
+
     private String description;
-    private String password;
-    private float pricePerDay;
+
+    @Column(nullable = false)
+    private BigDecimal pricePerDay;
 
     @Enumerated(EnumType.STRING)
-   private WorkspaceType type;
-
+    @Column(nullable = false)
+    private WorkspaceType type;
 }

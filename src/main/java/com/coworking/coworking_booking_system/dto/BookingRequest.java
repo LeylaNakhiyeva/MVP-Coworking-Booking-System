@@ -1,13 +1,18 @@
 package com.coworking.coworking_booking_system.dto;
 
-import com.coworking.coworking_booking_system.entity.User;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 public class BookingRequest {
-    private Integer workspaceId;
-    private LocalDate date;
-    private Integer userId;
-}
 
+    @NotNull
+    private Integer workspaceId;
+
+    @NotNull
+    private LocalDate date;
+}

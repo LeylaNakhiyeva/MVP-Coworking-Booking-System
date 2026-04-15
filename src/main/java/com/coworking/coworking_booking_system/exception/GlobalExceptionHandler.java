@@ -9,11 +9,23 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Map<String, String>> handleException(RuntimeException ex) {
-        Map<String, String> error = new HashMap<>();
-        error.put("message", ex.getMessage());
 
-        return ResponseEntity.badRequest().body(error);
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleNotFound(NotFoundException ex) {
+        return ResponseEntity.status(404)
+                .body(Map.of("message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<?> handleConflict(ConflictException ex) {
+        return ResponseEntity.status(409)
+                .body(Map.of("message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handleAccessDenied(AccessDeniedException ex) {
+        return ResponseEntity.status(403)
+                .body(Map.of("message", ex.getMessage()));
     }
 }
+

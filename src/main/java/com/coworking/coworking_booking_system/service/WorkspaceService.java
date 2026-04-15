@@ -1,55 +1,65 @@
 package com.coworking.coworking_booking_system.service;
 
+import com.coworking.coworking_booking_system.dto.WorkspaceResponse;
 import com.coworking.coworking_booking_system.entity.Workspace;
 import com.coworking.coworking_booking_system.enums.BookingStatus;
 import com.coworking.coworking_booking_system.repository.WorkspaceRepository;
 import com.coworking.coworking_booking_system.repository.BookingRepository;
-import com.coworking.coworking_booking_system.dto.WorkspaceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class WorkspaceService {
 
-    private final WorkspaceRepository workspaceRepo;
-    private final BookingRepository bookingRepo;
+    private final WorkspaceRepository workspaceRepository;
 
-    // 1. Bütün workspacelər
     public List<WorkspaceResponse> getAllWorkspaces() {
-        return workspaceRepo.findAll()
+        return workspaceRepository.findAll()
                 .stream()
                 .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    // 2. Müəyyən tarix üçün boş workspacelər
     public List<WorkspaceResponse> getAvailableWorkspaces(LocalDate date) {
 
-        List<Workspace> allWorkspaces = workspaceRepo.findAll();
-
-        return allWorkspaces.stream()
-                .filter(workspace ->
-                        !bookingRepo.existsByWorkspaceAndDateAndStatus(
-                                workspace,
-                                date,
-                                BookingStatus.CONFIRMED // yalnız aktiv bookingləri yoxla
-                        )
-                )
+        return workspaceRepository
+                .findAvailableWorkspaces(date, BookingStatus.CONFIRMED)
+                .stream()
                 .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    // DTO mapping
+    public WorkspaceResponse createWorkspace(Workspace workspace) {
+        return mapToResponse(workspaceRepository.save(workspace));
+    }
+
+    public WorkspaceResponse updateWorkspace(Integer id, Workspace updated) {
+
+        Workspace ws = workspaceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Workspace not found"));
+
+        ws.setName(updated.getName());
+        ws.setDescription(updated.getDescription());
+        ws.setPricePerDay(updated.getPricePerDay());
+        ws.setType(updated.getType());
+
+        return mapToResponse(workspaceRepository.save(ws));
+    }
+
     private WorkspaceResponse mapToResponse(Workspace workspace) {
         WorkspaceResponse dto = new WorkspaceResponse();
         dto.setId(workspace.getId());
-        dto.setName(workspace.getWorkspaceName());
+        dto.setName(workspace.getName());
+        dto.setDescription(workspace.getDescription());
+        dto.setPricePerDay(workspace.getPricePerDay());
+        dto.setType(workspace.getType());
         return dto;
     }
 }
+
+
 
